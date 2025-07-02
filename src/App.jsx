@@ -1,26 +1,25 @@
 // src/App.jsx
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import MainLayout from "./layouts/MainLayout";
-
-// Impor semua halaman yang akan kita buat nanti
-import Beranda from "./pages/Beranda";
-import Tentang from "./pages/Tentang";
-import Program from "./pages/Program";
-import Kontak from "./pages/Kontak";
+import Header from "./layouts/Header.jsx";
+import Footer from "./layouts/Footer.jsx";
+import Beranda from "./pages/Beranda.jsx";
+import Berita from "./pages/Berita.jsx";
+import Pendaftaran from "./pages/Pendaftaran.jsx";
+import DetailBerita from "./pages/DetailBerita.jsx"; // 1. Impor komponen baru
 
 function App() {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
-        <Route element={<MainLayout />}>
-          <Route path="/" element={<Beranda />} />
-          <Route path="/tentang" element={<Tentang />} />
-          <Route path="/program" element={<Program />} />
-          <Route path="/kontak" element={<Kontak />} />
-          {/* Tambahkan route lain di sini */}
-        </Route>
+        <Route path="/" element={<Beranda />} />
+        <Route path="/berita" element={<Berita />} />
+        {/* 2. Tambahkan rute dinamis ini. :slug adalah placeholder */}
+        <Route path="/berita/:slug" element={<DetailBerita />} />
+        <Route path="/pendaftaran" element={<Pendaftaran />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

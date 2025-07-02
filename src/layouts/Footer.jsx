@@ -1,7 +1,7 @@
 // src/layouts/Footer.jsx
-
 import React from "react";
-import { Link } from "react-router-dom";
+// Ganti import dari 'react-router-dom' menjadi 'react-scroll'
+import { Link } from "react-scroll";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -14,7 +14,15 @@ const Footer = () => {
           Reserved.
         </p>
         <div className="mt-4">
-          <Link to="/kontak" className="hover:text-green-400">
+          {/* Gunakan Link dari react-scroll untuk smooth scrolling */}
+          <Link
+            to="kontak" // ID section kontak
+            spy={true}
+            smooth={true}
+            offset={-70}
+            duration={500}
+            className="cursor-pointer hover:text-green-400"
+          >
             Hubungi Kami
           </Link>
         </div>

@@ -1,15 +1,22 @@
 // src/pages/Beranda.jsx
 import React from "react";
 import Hero from "../components/Hero.jsx";
-import FeaturedPrograms from "../components/FeaturedPrograms.jsx";
+// Pastikan tidak ada import FeaturedPrograms di sini
+import Tentang from "./Tentang.jsx";
+import Program from "./Program.jsx";
+import Kontak from "./Kontak.jsx";
+import BeritaTerbaru from "../components/BeritaTerbaru.jsx";
 
 const Beranda = () => {
   return (
-    <div>
+    // Kita tambahkan id="beranda" untuk link Beranda di navbar
+    <main id="beranda">
       <Hero />
-      <FeaturedPrograms />
-      {/* Di sini kita bisa menambahkan section lain nanti, seperti Berita Terbaru, dll. */}
-    </div>
+      <Tentang />
+      <Program />
+      <BeritaTerbaru />
+      <Kontak />
+    </main>
   );
 };
 
