@@ -1,8 +1,7 @@
 // src/pages/Berita.jsx
 import React, { useState, useEffect } from "react";
-import { db } from "../firebase"; // Impor database kita
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
-import { Link } from "react-router-dom"; // Kita akan butuh ini
+import { supabase } from "../supabaseClient"; // Pastikan import ke supabase
+import { Link } from "react-router-dom";
 
 const Berita = () => {
   const [beritaList, setBeritaList] = useState([]);
@@ -11,26 +10,19 @@ const Berita = () => {
   useEffect(() => {
     const fetchBerita = async () => {
       try {
-        // Membuat query untuk mengambil data dari koleksi 'berita', diurutkan berdasarkan tanggal
-        const q = query(
-          collection(db, "berita"),
-          orderBy("tanggalPublikasi", "desc")
-        );
-        const querySnapshot = await getDocs(q);
+        const { data, error } = await supabase
+          .from("berita")
+          .select("*")
+          .order("tanggalPublikasi", { ascending: false });
 
-        const beritaData = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-
-        setBeritaList(beritaData);
+        if (error) throw error;
+        setBeritaList(data);
       } catch (error) {
         console.error("Error fetching berita: ", error);
       } finally {
         setLoading(false);
       }
     };
-
     fetchBerita();
   }, []);
 
@@ -43,13 +35,12 @@ const Berita = () => {
       <div className="container mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-            Berita & Kegiatan Terbaru
+            Arsip Berita & Kegiatan
           </h2>
           <p className="mt-4 text-lg leading-6 text-gray-600">
-            Ikuti perkembangan dan kegiatan di Pondok Pesantren Jogo Negoro.
+            Semua perkembangan dan kegiatan di Pondok Pesantren Jogo Negoro.
           </p>
         </div>
-
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {beritaList.map((berita) => (
             <div
@@ -66,9 +57,9 @@ const Berita = () => {
                   {berita.judul}
                 </h3>
                 <p className="text-sm text-gray-500 mb-4">
-                  {new Date(
-                    berita.tanggalPublikasi.seconds * 1000
-                  ).toLocaleDateString("id-ID")}
+                  {new Date(berita.tanggalPublikasi).toLocaleDateString(
+                    "id-ID"
+                  )}
                 </p>
                 <p className="text-gray-700 flex-grow mb-4">
                   {berita.isi.substring(0, 100)}...

@@ -1,8 +1,6 @@
 // src/components/BeritaTerbaru.jsx
 import React, { useState, useEffect } from "react";
-import { db } from "../firebase";
-// Impor 'limit' untuk membatasi jumlah data
-import { collection, getDocs, orderBy, query, limit } from "firebase/firestore";
+import { supabase } from "../supabaseClient"; // Pastikan import ke supabase
 import { Link } from "react-router-dom";
 
 const BeritaTerbaru = () => {
@@ -12,27 +10,20 @@ const BeritaTerbaru = () => {
   useEffect(() => {
     const fetchBerita = async () => {
       try {
-        // Query ini sama seperti sebelumnya, tapi kita tambahkan limit(3)
-        const q = query(
-          collection(db, "berita"),
-          orderBy("tanggalPublikasi", "desc"),
-          limit(3)
-        );
-        const querySnapshot = await getDocs(q);
+        const { data, error } = await supabase
+          .from("berita")
+          .select("*")
+          .order("tanggalPublikasi", { ascending: false })
+          .limit(3);
 
-        const beritaData = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-
-        setBeritaList(beritaData);
+        if (error) throw error;
+        setBeritaList(data);
       } catch (error) {
         console.error("Error fetching berita terbaru: ", error);
       } finally {
         setLoading(false);
       }
     };
-
     fetchBerita();
   }, []);
 
@@ -51,7 +42,6 @@ const BeritaTerbaru = () => {
             Ikuti perkembangan dan kegiatan di Pondok Pesantren Jogo Negoro.
           </p>
         </div>
-
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {beritaList.map((berita) => (
             <div
@@ -68,9 +58,9 @@ const BeritaTerbaru = () => {
                   {berita.judul}
                 </h3>
                 <p className="text-sm text-gray-500 mb-4">
-                  {new Date(
-                    berita.tanggalPublikasi.seconds * 1000
-                  ).toLocaleDateString("id-ID")}
+                  {new Date(berita.tanggalPublikasi).toLocaleDateString(
+                    "id-ID"
+                  )}
                 </p>
                 <p className="text-gray-700 flex-grow mb-4">
                   {berita.isi.substring(0, 100)}...
@@ -85,8 +75,6 @@ const BeritaTerbaru = () => {
             </div>
           ))}
         </div>
-
-        {/* Tombol untuk melihat semua berita */}
         <div className="text-center mt-12">
           <Link
             to="/berita"
