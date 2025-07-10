@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useLocation, useNavigate, Link as RouterLink } from "react-router-dom";
 import { scroller } from "react-scroll";
 import { FaBars, FaTimes } from "react-icons/fa";
+import logoPonpes from "../assets/images/logo-ponpes.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -53,12 +54,19 @@ const Header = () => {
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-        <h1
+        <div
           onClick={() => handleNavClick("beranda")}
-          className="text-2xl font-bold text-green-800 cursor-pointer"
+          className="flex items-center gap-3 cursor-pointer"
         >
-          Ponpes Jogo Negoro
-        </h1>
+          <img
+            src={logoPonpes}
+            alt="Logo Ponpes Jogo Negoro"
+            className="h-10 w-10"
+          />
+          <span className="text-xl font-bold text-green-800">
+            Ponpes Jogo Negoro
+          </span>
+        </div>
 
         {/* NAVIGASI DESKTOP */}
         <nav className="hidden md:flex">
