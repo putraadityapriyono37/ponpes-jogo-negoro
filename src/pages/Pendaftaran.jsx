@@ -1,13 +1,27 @@
 // src/pages/Pendaftaran.jsx
-import React from "react";
+import React, { useEffect } from "react";
+import { supabase } from "../supabaseClient";
 
 const Pendaftaran = () => {
+  useEffect(() => {
+    const fetchAndRedirect = async () => {
+      const { data } = await supabase
+        .from("konfigurasi")
+        .select("link")
+        .eq("nama", "pendaftaran")
+        .single();
+
+      if (data && data.link) {
+        // Arahkan pengguna ke link G-Form
+        window.location.href = data.link;
+      }
+    };
+    fetchAndRedirect();
+  }, []);
+
   return (
-    <div className="container mx-auto py-16 text-center">
-      <h2 className="text-3xl font-bold">Halaman Pendaftaran Santri Baru</h2>
-      <p className="mt-4">
-        Formulir pendaftaran akan segera kami bangun di sini.
-      </p>
+    <div className="text-center py-20">
+      <p>Mengalihkan ke halaman pendaftaran...</p>
     </div>
   );
 };

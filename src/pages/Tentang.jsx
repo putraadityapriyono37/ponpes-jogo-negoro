@@ -28,7 +28,7 @@ const Tentang = () => {
         </div>
 
         {/* Bagian Sejarah */}
-        <div className="mt-16 prose lg:prose-lg max-w-full text-gray-700">
+        <div className="mt-16 prose lg:prose-lg max-w-full text-gray-700 text-justify">
           <h3 className="text-2xl font-bold text-green-800 mb-4 text-center">
             Sejarah Singkat
           </h3>
@@ -92,7 +92,7 @@ const Tentang = () => {
               <h4 className="text-xl font-bold text-gray-800 mb-2">
                 Kyai Ulumudin
               </h4>
-              <p className="text-gray-700 mb-4 text-sm">
+              <p className="text-gray-700 mb-4 text-sm text-justify">
                 Kelahiran Wonosobo, 15 Oktober 1980. Beliau berasal dari
                 keluarga petani biasa, putra dari bapak Ahmad dan Ibu Sofiyah,
                 yang merupakan anak bungsu dari 8 bersaudara. Menurut adat
@@ -100,8 +100,8 @@ const Tentang = () => {
                 untuk berpindah domisili, dan beliau juga menjadi kepala
                 Madrasah Diniyyah Al Islach Kejiwan, Wonosobo. Pada tahun 2008,
                 beliau menikahi gadis dari Desa Pamijen Kecamatan Baturraden,
-                putri dari bapak Abdul Muhid (jalur nasab Syekh Imam Rozi
-                Sokaraja) dan Ibu Musyifah. Dikaruniai dua orang putri. Sampai
+                putri dari bapak Abdul Muchit (jalur nasab Syekh Imam Rozi
+                Sokaraja) dan ibu Musrifah. Dikaruniai dua orang putri. Sampai
                 sekarang bapak Kyai Ulumudin Bersama istri dan anak-anaknya
                 berdomisili di Desa Pamijen, Kecamatan Baturraden.
               </p>
@@ -130,9 +130,9 @@ const Tentang = () => {
               <h4 className="text-xl font-bold text-gray-800 mb-2">
                 Ibu Nyai Siti Sofuro
               </h4>
-              <p className="text-gray-700 mb-4 text-sm">
-                Berasal dari Desa Pamijen, putri dari bapak Abdul Muhid (jalur
-                nasab Syekh Imam Rozi Sokaraja) dan Ibu Musyifah.
+              <p className="text-gray-700 mb-4 text-sm text-justify">
+                Berasal dari Desa Pamijen, putri dari bapak Abdul Muchit (jalur
+                nasab Syekh Imam Rozi Sokaraja) dan ibu Musrifah.
               </p>
               <h5 className="font-semibold mb-2">Riwayat Pendidikan:</h5>
               <ul className="list-disc list-inside text-gray-700 space-y-1">
@@ -147,7 +147,7 @@ const Tentang = () => {
         </div>
 
         {/* Bagian Visi & Misi */}
-        <div className="mt-16 bg-green-50 p-12 rounded-lg">
+        <div className="mt-16 bg-green-50 p-12 rounded-lg text-justify">
           <h3 className="text-2xl font-bold text-green-800 text-center mb-8">
             Visi & Misi
           </h3>

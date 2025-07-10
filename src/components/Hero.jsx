@@ -1,12 +1,34 @@
 // src/components/Hero.jsx
-import React from "react";
-import { Link } from "react-router-dom";
-// 1. Impor gambar dari path yang benar
-import heroBg from "../assets/images/hero-background.jpg";
+import React, { useState, useEffect } from "react";
+import { supabase } from "../supabaseClient";
+import heroBg from "../assets/images/hero-background.jpg"; // Pastikan path gambar ini benar
 
 const Hero = () => {
+  const [linkPendaftaran, setLinkPendaftaran] = useState("");
+
+  useEffect(() => {
+    // Mengambil link pendaftaran dari Supabase saat komponen dimuat
+    const fetchLink = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("konfigurasi")
+          .select("link")
+          .eq("nama", "pendaftaran")
+          .single();
+
+        if (error) throw error;
+
+        if (data) {
+          setLinkPendaftaran(data.link);
+        }
+      } catch (error) {
+        console.error("Gagal mengambil link pendaftaran untuk Hero:", error);
+      }
+    };
+    fetchLink();
+  }, []);
+
   return (
-    // 2. Gunakan div terpisah untuk latar belakang gambar
     <div className="relative text-white text-center min-h-screen flex flex-col justify-center items-center px-4">
       {/* Latar belakang gambar dengan overlay gelap */}
       <div
@@ -25,12 +47,16 @@ const Hero = () => {
           Bergabunglah dengan Pondok Pesantren Jogo Negoro untuk pendidikan
           Islam yang komprehensif.
         </p>
-        <Link
-          to="/pendaftaran"
-          className="bg-green-600 text-white font-bold py-3 px-8 rounded-full hover:bg-green-700 transition duration-300"
+
+        {/* Mengubah Link menjadi tag <a> yang dinamis */}
+        <a
+          href={linkPendaftaran || "#"}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-green-700 text-white font-bold py-3 px-8 rounded-full hover:bg-green-800 transition duration-300"
         >
           Daftar Sekarang
-        </Link>
+        </a>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 // src/components/BeritaTerbaru.jsx
 import React, { useState, useEffect } from "react";
-import { supabase } from "../supabaseClient"; // Pastikan import ke supabase
+import { supabase } from "../supabaseClient";
 import { Link } from "react-router-dom";
 
 const BeritaTerbaru = () => {
@@ -27,8 +27,9 @@ const BeritaTerbaru = () => {
     fetchBerita();
   }, []);
 
-  if (loading) {
-    return <div className="text-center py-10">Memuat berita terbaru...</div>;
+  // Jangan tampilkan section ini sama sekali jika tidak ada berita atau masih loading
+  if (loading || beritaList.length === 0) {
+    return null;
   }
 
   return (
@@ -42,39 +43,43 @@ const BeritaTerbaru = () => {
             Ikuti perkembangan dan kegiatan di Pondok Pesantren Jogo Negoro.
           </p>
         </div>
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
           {beritaList.map((berita) => (
             <div
               key={berita.id}
-              className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col"
+              className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col group"
             >
-              <img
-                src={berita.gambarUrl}
-                alt={berita.judul}
-                className="h-48 w-full object-cover"
-              />
-              <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-xl font-bold text-green-800 mb-2">
+              <div className="overflow-hidden">
+                <img
+                  src={berita.gambarUrl}
+                  alt={berita.judul}
+                  className="w-full h-32 object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <div className="p-4 flex flex-col flex-grow">
+                <h3 className="text-base font-bold text-gray-800 mb-1 leading-tight group-hover:text-green-700">
                   {berita.judul}
                 </h3>
-                <p className="text-sm text-gray-500 mb-4">
+                <p className="text-xs text-gray-500 mb-2">
                   {new Date(berita.tanggalPublikasi).toLocaleDateString(
                     "id-ID"
                   )}
                 </p>
-                <p className="text-gray-700 flex-grow mb-4">
-                  {berita.isi.substring(0, 100)}...
+                <p className="text-sm text-gray-600 flex-grow">
+                  {berita.isi.substring(0, 60)}...
                 </p>
                 <Link
                   to={`/berita/${berita.slug}`}
-                  className="text-green-600 hover:text-green-800 font-semibold mt-auto"
+                  className="text-green-600 hover:text-green-800 font-semibold mt-3 text-sm self-start"
                 >
-                  Baca Selengkapnya →
+                  Baca Selengkapnya
                 </Link>
               </div>
             </div>
           ))}
         </div>
+
         <div className="text-center mt-12">
           <Link
             to="/berita"

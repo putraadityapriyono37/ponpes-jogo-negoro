@@ -1,17 +1,34 @@
 // src/layouts/Header.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // 1. Impor hooks dari router dan scroller dari react-scroll
 import { useLocation, useNavigate, Link as RouterLink } from "react-router-dom";
 import { scroller } from "react-scroll";
 import { FaBars, FaTimes } from "react-icons/fa";
 import logoPonpes from "../assets/images/logo-ponpes.png";
+import { supabase } from "../supabaseClient";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [linkPendaftaran, setLinkPendaftaran] = useState("");
   // 2. Dapatkan fungsi navigate dan lokasi saat ini
   const navigate = useNavigate();
   const location = useLocation();
 
+  useEffect(() => {
+    const fetchLink = async () => {
+      const { data, error } = await supabase
+        .from("konfigurasi")
+        .select("link")
+        .eq("nama", "pendaftaran")
+        .single();
+
+      if (data) {
+        setLinkPendaftaran(data.link);
+      }
+      if (error) console.error("Gagal mengambil link pendaftaran:", error);
+    };
+    fetchLink();
+  }, []);
   // 3. Buat fungsi navigasi pintar
   const handleNavClick = (section) => {
     // Tutup menu mobile jika terbuka
@@ -48,6 +65,7 @@ const Header = () => {
     { to: "tentang", label: "Tentang Kami" },
     { to: "program", label: "Program" },
     { to: "berita", label: "Berita" },
+    { to: "galeri", label: "Galeri" },
     { to: "kontak", label: "Kontak" },
   ];
 
@@ -81,12 +99,14 @@ const Header = () => {
               </li>
             ))}
             <li>
-              <RouterLink
-                to="/pendaftaran"
+              <a
+                href={linkPendaftaran || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-green-700 text-white font-semibold px-4 py-2 rounded-lg hover:bg-green-800"
               >
                 Pendaftaran
-              </RouterLink>
+              </a>
             </li>
           </ul>
         </nav>
@@ -116,13 +136,15 @@ const Header = () => {
               </li>
             ))}
             <li>
-              <RouterLink
-                to="/pendaftaran"
+              <a
+                href={linkPendaftaran || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={closeMenu}
                 className="bg-green-700 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-green-800"
               >
                 Pendaftaran
-              </RouterLink>
+              </a>
             </li>
           </ul>
         </nav>

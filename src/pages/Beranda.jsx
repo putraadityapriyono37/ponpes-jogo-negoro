@@ -6,6 +6,7 @@ import Tentang from "./Tentang.jsx";
 import Program from "./Program.jsx";
 import Kontak from "./Kontak.jsx";
 import BeritaTerbaru from "../components/BeritaTerbaru.jsx";
+import GaleriTerbaru from "../components/GaleriTerbaru.jsx";
 
 const Beranda = () => {
   return (
@@ -15,6 +16,7 @@ const Beranda = () => {
       <Tentang />
       <Program />
       <BeritaTerbaru />
+      <GaleriTerbaru />
       <Kontak />
     </main>
   );

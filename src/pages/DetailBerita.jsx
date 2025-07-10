@@ -58,7 +58,7 @@ const DetailBerita = () => {
         <img
           src={berita.gambarUrl}
           alt={berita.judul}
-          className="w-full h-auto max-h-[500px] object-cover rounded-lg shadow-lg mb-8"
+          className="w-full h-auto rounded-lg shadow-lg mb-8"
         />
         <div className="prose lg:prose-xl max-w-full text-gray-800 whitespace-pre-wrap">
           {berita.isi}
