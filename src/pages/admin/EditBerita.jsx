@@ -1,6 +1,6 @@
 // src/pages/admin/EditBerita.jsx
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { supabase } from "../../supabaseClient";
 
 const EditBerita = () => {
@@ -153,13 +153,21 @@ const EditBerita = () => {
             className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
           />
         </div>
-        <button
-          type="submit"
-          disabled={loading}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
-        >
-          {loading ? "Memperbarui..." : "Update Berita"}
-        </button>
+        <div className="flex items-center space-x-4">
+          <button
+            type="submit"
+            disabled={loading}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
+          >
+            {loading ? "Memperbarui..." : "Update Berita"}
+          </button>
+          <Link
+            to="/admin/dashboard"
+            className="text-gray-600 hover:text-gray-800"
+          >
+            Batal
+          </Link>
+        </div>
       </form>
     </div>
   );

@@ -76,9 +76,10 @@ const Dashboard = () => {
 
   return (
     <div className="container mx-auto py-10 px-4">
-      <div className="flex justify-between items-center mb-6">
+      {/* Bagian Header Dashboard */}
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
         <h1 className="text-3xl font-bold">Dashboard Admin</h1>
-        <div>
+        <div className="flex justify-end">
           <Link
             to="/admin/tambah-berita"
             className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
@@ -95,7 +96,9 @@ const Dashboard = () => {
             <thead className="bg-gray-200">
               <tr>
                 <th className="py-2 px-4 text-left">Judul</th>
-                <th className="py-2 px-4 text-left">Tanggal</th>
+                <th className="py-2 px-4 text-left hidden sm:table-cell">
+                  Tanggal
+                </th>
                 <th className="py-2 px-4 text-left">Aksi</th>
               </tr>
             </thead>
@@ -112,22 +115,21 @@ const Dashboard = () => {
                       {berita.judul}
                     </Link>
                   </td>
-                  <td className="py-2 px-4">
+                  <td className="py-2 px-4 hidden sm:table-cell">
                     {new Date(berita.tanggalPublikasi).toLocaleDateString(
                       "id-ID"
                     )}
                   </td>
-                  <td className="py-2 px-4">
-                    {/* Ubah button menjadi Link */}
+                  <td className="py-2 px-4 flex flex-col items-start gap-2 sm:flex-row sm:items-center">
                     <Link
                       to={`/admin/edit-berita/${berita.id}`}
-                      className="text-blue-500 hover:text-blue-700 mr-2"
+                      className="text-blue-500 hover:text-blue-700 text-sm"
                     >
                       Edit
                     </Link>
                     <button
                       onClick={() => handleDelete(berita.id, berita.gambarUrl)}
-                      className="text-red-500 hover:text-red-700"
+                      className="text-red-500 hover:text-red-700 text-sm"
                     >
                       Hapus
                     </button>

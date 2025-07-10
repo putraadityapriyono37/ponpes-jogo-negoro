@@ -1,6 +1,6 @@
 // src/pages/admin/TambahBerita.jsx
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "../../supabaseClient"; // Ganti import ke supabase
 
 const TambahBerita = () => {
@@ -115,13 +115,21 @@ const TambahBerita = () => {
             className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
           />
         </div>
-        <button
-          type="submit"
-          disabled={loading}
-          className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 disabled:bg-gray-400"
-        >
-          {loading ? "Menyimpan..." : "Simpan Berita"}
-        </button>
+        <div className="flex items-center space-x-4">
+          <button
+            type="submit"
+            disabled={loading}
+            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 disabled:bg-gray-400"
+          >
+            {loading ? "Menyimpan..." : "Simpan Berita"}
+          </button>
+          <Link
+            to="/admin/dashboard"
+            className="text-gray-600 hover:text-gray-800"
+          >
+            Batal
+          </Link>
+        </div>
       </form>
     </div>
   );

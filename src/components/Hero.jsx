@@ -1,20 +1,18 @@
 // src/components/Hero.jsx
 import React from "react";
-import { Link } from "react-scroll"; // Impor Link dari react-scroll
+import { Link } from "react-router-dom";
+// 1. Impor gambar dari path yang benar
+import heroBg from "../assets/images/hero-background.jpg";
 
 const Hero = () => {
   return (
-    // Ganti py-32 dengan min-h-screen dan tambahkan flex untuk centering
+    // 2. Gunakan div terpisah untuk latar belakang gambar
     <div className="relative text-white text-center min-h-screen flex flex-col justify-center items-center px-4">
-      {/* Latar belakang gambar */}
+      {/* Latar belakang gambar dengan overlay gelap */}
       <div
-        className="absolute top-0 left-0 w-full h-full bg-cover bg-center bg-green-800"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1593349480503-685d3a5e8460?q=80&w=2070')",
-        }}
+        className="absolute top-0 left-0 w-full h-full bg-cover bg-center"
+        style={{ backgroundImage: `url(${heroBg})` }}
       >
-        {/* Lapisan overlay gelap untuk kontras */}
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
       </div>
 
@@ -27,16 +25,9 @@ const Hero = () => {
           Bergabunglah dengan Pondok Pesantren Jogo Negoro untuk pendidikan
           Islam yang komprehensif.
         </p>
-
-        {/* Tombol ini sekarang akan scroll ke section pendaftaran/kontak */}
-        {/* Ganti class tombol di bawah ini */}
         <Link
-          to="kontak"
-          smooth={true}
-          offset={-70} // Nilai ini juga akan kita perbaiki nanti
-          duration={500}
-          // Class yang baru, disamakan dengan tombol Pendaftaran
-          className="bg-green-700 text-white font-bold py-3 px-8 rounded-full hover:bg-green-800 transition duration-300 cursor-pointer"
+          to="/pendaftaran"
+          className="bg-green-600 text-white font-bold py-3 px-8 rounded-full hover:bg-green-700 transition duration-300"
         >
           Daftar Sekarang
         </Link>
