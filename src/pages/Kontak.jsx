@@ -22,6 +22,7 @@ const Kontak = () => {
   const [kontakInfo, setKontakInfo] = useState({
     wa_kyai: "",
     wa_lurah: "",
+    wa_lurah_2: "",
   });
 
   useEffect(() => {
@@ -31,12 +32,15 @@ const Kontak = () => {
       if (error) console.error("Error fetching kontak:", error);
       else {
         const kontakObj = data.reduce((acc, item) => {
-          if (item.nama === "wa_kyai" || item.nama === "wa_lurah") {
+          // GANTI LOGIKA 'if' MENJADI SEPERTI INI:
+          // Ini akan mengambil semua data yang namanya diawali dengan 'wa_'
+          if (item.nama.startsWith("wa_")) {
             acc[item.nama] = item.link;
           }
           return acc;
         }, {});
-        setKontakInfo(kontakObj);
+        // Ganti cara update state agar menggabungkan, bukan menimpa
+        setKontakInfo((prev) => ({ ...prev, ...kontakObj }));
       }
     };
     fetchKontak();
@@ -156,7 +160,18 @@ const Kontak = () => {
                   className="flex items-center hover:text-green-700"
                 >
                   <FaWhatsapp className="text-green-700 mr-3" size={20} />
-                  <span>Kirim WA ke Lurah Pondok (Salma)</span>
+                  <span>Kirim WA ke Lurah Pondok 1</span>
+                </a>
+              )}
+              {kontakInfo.wa_lurah_2 && (
+                <a
+                  href={`https://wa.me/${kontakInfo.wa_lurah_2}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center hover:text-green-700"
+                >
+                  <FaWhatsapp className="text-green-700 mr-3" size={20} />
+                  <span>Kirim WA ke Lurah Pondok 2</span>
                 </a>
               )}
               {/* Link Instagram */}

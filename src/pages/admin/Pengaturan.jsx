@@ -7,6 +7,7 @@ const Pengaturan = () => {
     pendaftaran: "",
     wa_kyai: "",
     wa_lurah: "",
+    wa_lurah_2: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -88,13 +89,29 @@ const Pengaturan = () => {
             className="block text-xl font-semibold mb-2"
             htmlFor="wa_lurah"
           >
-            Nomor WhatsApp Lurah Pondok (Format: 628...)
+            Nomor WhatsApp Lurah Pondok 1 (Format: 628...)
           </label>
           <input
             id="wa_lurah"
             name="wa_lurah"
             type="text"
             value={settings.wa_lurah}
+            onChange={handleInputChange}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
+          />
+        </div>
+        <div>
+          <label
+            className="block text-xl font-semibold mb-2"
+            htmlFor="wa_lurah_2"
+          >
+            Nomor WhatsApp Lurah Pondok 2 (Format: 628...)
+          </label>
+          <input
+            id="wa_lurah_2"
+            name="wa_lurah_2"
+            type="text"
+            value={settings.wa_lurah_2}
             onChange={handleInputChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"
           />
