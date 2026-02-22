@@ -52,7 +52,7 @@ const Kontak = () => {
 
     try {
       // JANGAN LUPA GANTI DENGAN URL FORMSPREE ANDA
-      const response = await fetch("https://formspree.io/f/xanjrqjb", {
+      const response = await fetch("https://formspree.io/f/xzdajjjb", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
